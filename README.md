@@ -38,4 +38,3 @@ Core features include:
 # Installation
 
 [Follow this guide](./INSTALLATION.md)
-.
