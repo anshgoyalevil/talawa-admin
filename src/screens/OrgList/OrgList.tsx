@@ -170,7 +170,7 @@ function OrgList(): JSX.Element {
               <p>
                 {t('designation')}:<span> {data_2?.user.userType}</span>
               </p>
-              <p className={styles.userEmail}>
+              <div className={styles.userEmail}>
                 {t('email')}:
                 <p>
                   {data_2?.user.email.substring(
@@ -184,13 +184,13 @@ function OrgList(): JSX.Element {
                     )}
                   </span>
                 </p>
-              </p>
+              </div>
 
               <h6 className={styles.searchtitle}>{t('searchByName')}</h6>
               <input
                 type="name"
                 id="orgname"
-                placeholder="Enter Name"
+                placeholder={t('enterName')}
                 data-testid="searchByName"
                 autoComplete="off"
                 required
