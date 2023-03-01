@@ -99,6 +99,7 @@ function OrgList(): JSX.Element {
           location: '',
           tags: '',
         });
+        setmodalIsOpen(false);
       }
     } catch (error: any) {
       /* istanbul ignore next */
@@ -150,9 +151,11 @@ function OrgList(): JSX.Element {
       });
     }
   };
-
+  let dataRevOrg;
   const debouncedHandleSearchByName = debounce(handleSearchByName);
-
+  if (data) {
+    dataRevOrg = data.organizationsConnection.slice().reverse();
+  }
   return (
     <>
       <ListNavbar />
@@ -216,7 +219,7 @@ function OrgList(): JSX.Element {
             <div className={styles.list_box}>
               {data &&
                 (rowsPerPage > 0
-                  ? data.organizationsConnection.slice(
+                  ? dataRevOrg.slice(
                       page * rowsPerPage,
                       page * rowsPerPage + rowsPerPage
                     )
