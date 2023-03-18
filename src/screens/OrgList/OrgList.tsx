@@ -21,6 +21,7 @@ import PaginationList from 'components/PaginationList/PaginationList';
 import debounce from 'utils/debounce';
 import convertToBase64 from 'utils/convertToBase64';
 import AdminDashListCard from 'components/AdminDashListCard/AdminDashListCard';
+import PostNotFound from 'components/PostNotFound/PostNotFound';
 
 function OrgList(): JSX.Element {
   const { t } = useTranslation('translation', { keyPrefix: 'orgList' });
@@ -103,7 +104,13 @@ function OrgList(): JSX.Element {
       }
     } catch (error: any) {
       /* istanbul ignore next */
-      toast.error(error.message);
+      if (error.message === 'Failed to fetch') {
+        toast.error(
+          'Talawa-API service is unavailable. Is it running? Check your network connectivity too.'
+        );
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -217,7 +224,7 @@ function OrgList(): JSX.Element {
               />
             </div>
             <div className={styles.list_box}>
-              {data &&
+              {data && data.organizationsConnection.length > 0 ? (
                 (rowsPerPage > 0
                   ? dataRevOrg.slice(
                       page * rowsPerPage,
@@ -266,7 +273,10 @@ function OrgList(): JSX.Element {
                       );
                     }
                   }
-                )}
+                )
+              ) : (
+                <PostNotFound title="organization" />
+              )}
             </div>
             <div>
               <table
